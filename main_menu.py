@@ -1,8 +1,8 @@
 import pygame
 from scene_base import SceneBase
-from hangman_instructions import HangmanInstructions
+from hangman.hangman_instructions import HangmanInstructions
 from anagram_instructions import AnagramInstructions
-from chomper_instructions import ChomperInstructions
+from chomper.chomper_instructions import ChomperInstructions
 from placeholder_scene import GameScene
 
 
