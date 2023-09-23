@@ -41,8 +41,12 @@ class PlayerHorse(Horse):
         super().__init__(y_coordinate, colour)
 
     def update(self):
-        if random.randint(0, 1) == 1:
+        random_num = random.randint(0, 50)
+        if random_num % 2 == 0:
             self.move_forward()
+        elif random_num == 1:
+            if self.current_speed_index == len(self.speeds) - 1:
+                self.make_slower()
         self.increase_animation_counter()
 
 class ComputerHorse(Horse):
@@ -76,7 +80,7 @@ class TextInputBox():
         self.colour = inactive_colour
     def handle_typing(self, event):
         if event.key == pygame.K_RETURN:
-            self.game.check_spelling(self.text)
+            self.game.check_spelling(self.text.strip())
             self.text = ''
             self.make_inactive()
             self.game.race_active = True
@@ -94,6 +98,7 @@ class HorseGame(SceneBase):
         SceneBase.__init__(self)
         self.text_speech = pyttsx3.init()
         self.race_active = True
+        self.counter = 0
         self.text_input_box = TextInputBox(self)
         self.player_horse = pygame.sprite.GroupSingle()
         self.player_horse.add(PlayerHorse(200, "pink"))
@@ -103,26 +108,35 @@ class HorseGame(SceneBase):
         self.challenger_horses.add(ComputerHorse(650, "orange"))
 
     def check_spelling(self, spelling_attempt):
-        if spelling_attempt.lower() == self.spelling_word.lower():
+        print(spelling_attempt.lower())
+        print(self.spelling_word.lower())
+        if spelling_attempt.strip().lower() == self.spelling_word.lower():
             self.player_horse.sprite.make_faster()
+            print("GOING FASTER")
         else:
             self.player_horse.sprite.make_slower()
+            print("GOING SLOWER")
+        self.counter = 0
     def ProcessInput(self, events, pressed_keys):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if self.text_input_box.active:
                     self.text_input_box.handle_typing(event)
+                else:
+                    if event.key == pygame.K_SPACE:
+                        self.counter += 1
+                        if self.counter == 20:
+                            self.race_active = False
+                            self.text_input_box.make_active()
+                            self.spelling_word = random.choice(spelling_words)
+                            print(self.spelling_word )
+                            self.text_speech.say(self.spelling_word)
+                            self.text_speech.runAndWait()
     def Update(self):
         if self.race_active:
             self.player_horse.update()
             self.challenger_horses.update()
-            random_spelling_chance = random.randint(0, 400)
-            if random_spelling_chance == 1:
-                self.race_active = False
-                self.text_input_box.make_active()
-                self.spelling_word = random.choice(spelling_words)
-                self.text_speech.say(self.spelling_word)
-                self.text_speech.runAndWait()
+
     def Render(self, screen):
         screen.fill("green")
         self.player_horse.draw(screen)
