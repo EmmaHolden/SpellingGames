@@ -42,7 +42,7 @@ class PlayerHorse(Horse):
 
     def update(self):
         random_num = random.randint(0, 50)
-        if random_num % 2 == 0:
+        if random_num % 3 != 0:
             self.move_forward()
         elif random_num == 1:
             if self.current_speed_index == len(self.speeds) - 1:
@@ -55,13 +55,12 @@ class ComputerHorse(Horse):
 
     def update(self):
         random_num = random.randint(0, 9)
-        if random_num in [0, 1, 2, 3, 4]:
+        if random_num % 3 != 0:
             self.move_forward()
-            if random_num in [0, 1]:
-                self.make_faster()
-        else:
-            if random_num in [5, 6]:
-                self.make_slower()
+        if random_num in [0, 1]:
+            self.make_faster()
+        if random_num in [2, 3]:
+            self.make_slower()
         self.increase_animation_counter()
 
 class TextInputBox():
