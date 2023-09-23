@@ -21,13 +21,10 @@ def run_game():
             elif event.type == pygame.KEYDOWN:
                 alt_pressed = pressed_keys[pygame.K_LALT] or \
                               pressed_keys[pygame.K_RALT]
-                if event.key == pygame.K_ESCAPE:
+                if event.key == pygame.K_F4 and alt_pressed:
                     quit_attempt = True
-                elif event.key == pygame.K_F4 and alt_pressed:
-                    quit_attempt = True
-                elif event.key == pygame.K_BACKSPACE:
+                elif event.key == pygame.K_ESCAPE:
                     active_scene = MainMenu()
-
             if quit_attempt:
                 active_scene.Terminate()
             else:
