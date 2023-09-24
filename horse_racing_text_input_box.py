@@ -1,8 +1,8 @@
 import pygame
-from game_variables import pixel_font_60
+from game_variables import horse_font_40
 
 active_colour = "white"
-inactive_colour = "green"
+inactive_colour = "#A7ECFF"
 class TextInputBox():
     def __init__(self, game):
         self.game = game
@@ -10,7 +10,7 @@ class TextInputBox():
         self.active = False
         self.text = ""
         self.colour = active_colour if self.active else inactive_colour
-        self.image = pixel_font_60.render(self.text, True, "black", self.colour)
+        self.image = horse_font_40.render(self.text, True, "black", self.colour)
     def make_active(self):
         self.active = True
         self.colour = active_colour
@@ -29,6 +29,6 @@ class TextInputBox():
         else:
             if len(self.text) <= 30:
                 self.text += event.unicode
-        self.image = pixel_font_60.render(self.text, True, "black")
-        width = max(200, self.image.get_width() + 10)
+        self.image = horse_font_40.render(self.text, True, "black")
+        width = max(200, self.image.get_width() + 20)
         self.rect.w = width

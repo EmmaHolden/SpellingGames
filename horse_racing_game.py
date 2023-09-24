@@ -10,16 +10,17 @@ from horse_racing_player_horse import PlayerHorse
 class HorseGame(SceneBase):
     def __init__(self):
         SceneBase.__init__(self)
+        self.background = pygame.image.load('graphics/horseracingbackground.png')
         self.text_speech = pyttsx3.init()
         self.race_active = True
         self.counter = 0
         self.text_input_box = TextInputBox(self)
         self.player_horse = pygame.sprite.GroupSingle()
-        self.player_horse.add(PlayerHorse(200, "pink"))
+        self.player_horse.add(PlayerHorse(340, "pink"))
         self.challenger_horses = pygame.sprite.Group()
-        self.challenger_horses.add(ComputerHorse(350, "blue"))
-        self.challenger_horses.add(ComputerHorse(500, "red"))
-        self.challenger_horses.add(ComputerHorse(650, "orange"))
+        self.challenger_horses.add(ComputerHorse(420, "blue"))
+        self.challenger_horses.add(ComputerHorse(520, "red"))
+        self.challenger_horses.add(ComputerHorse(620, "orange"))
 
     def check_spelling(self, spelling_attempt):
         if spelling_attempt.strip().lower() == self.spelling_word.lower():
@@ -48,7 +49,7 @@ class HorseGame(SceneBase):
             self.challenger_horses.update()
 
     def Render(self, screen):
-        screen.fill("green")
+        screen.blit(self.background, (0, 0))
         self.player_horse.draw(screen)
         self.challenger_horses.draw(screen)
         pygame.draw.rect(screen, self.text_input_box.colour, self.text_input_box.rect)
