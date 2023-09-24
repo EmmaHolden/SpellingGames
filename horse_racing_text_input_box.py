@@ -28,7 +28,7 @@ class TextInputBox():
             self.text = self.text[:-1]
         else:
             if len(self.text) <= 30:
-                self.text += event.unicode
+                self.text += event.unicode.upper()
         self.image = horse_font_40.render(self.text, True, "black")
         width = max(200, self.image.get_width() + 20)
         self.rect.w = width

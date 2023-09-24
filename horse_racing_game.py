@@ -6,21 +6,23 @@ from game_variables import spelling_words
 from horse_racing_text_input_box import TextInputBox
 from horse_racing_computer_horse import ComputerHorse
 from horse_racing_player_horse import PlayerHorse
+from horse_racing_results import HorseRacingResults
 
 class HorseGame(SceneBase):
     def __init__(self):
         SceneBase.__init__(self)
+        self.finished_places = []
         self.background = pygame.image.load('graphics/horseracingbackground.png')
         self.text_speech = pyttsx3.init()
         self.race_active = True
         self.counter = 0
         self.text_input_box = TextInputBox(self)
         self.player_horse = pygame.sprite.GroupSingle()
-        self.player_horse.add(PlayerHorse(340, "pink"))
+        self.player_horse.add(PlayerHorse(340, "pink", self))
         self.challenger_horses = pygame.sprite.Group()
-        self.challenger_horses.add(ComputerHorse(420, "blue"))
-        self.challenger_horses.add(ComputerHorse(520, "red"))
-        self.challenger_horses.add(ComputerHorse(620, "orange"))
+        self.challenger_horses.add(ComputerHorse(420, "blue", self))
+        self.challenger_horses.add(ComputerHorse(520, "red", self))
+        self.challenger_horses.add(ComputerHorse(620, "orange", self))
 
     def check_spelling(self, spelling_attempt):
         if spelling_attempt.strip().lower() == self.spelling_word.lower():
@@ -35,19 +37,34 @@ class HorseGame(SceneBase):
                     self.text_input_box.handle_typing(event)
                 else:
                     if event.key == pygame.K_SPACE:
-                        self.counter += 1
-                        if self.counter == 20:
-                            self.race_active = False
-                            self.text_input_box.make_active()
-                            self.spelling_word = random.choice(spelling_words)
-                            print(self.spelling_word )
-                            self.text_speech.say(self.spelling_word)
-                            self.text_speech.runAndWait()
+                        if not self.player_horse.sprite.check_finished():
+                            self.counter += 1
+                            if self.counter == 20:
+                                self.race_active = False
+                                self.text_input_box.make_active()
+                                self.spelling_word = random.choice(spelling_words)
+                                print(self.spelling_word )
+                                self.text_speech.say(self.spelling_word)
+                                self.text_speech.runAndWait()
+
     def Update(self):
         if self.race_active:
-            self.player_horse.update()
-            self.challenger_horses.update()
-
+            if len(self.finished_places) < 4:
+                if self.player_horse.sprite.check_finished():
+                    if self.player_horse.sprite not in self.finished_places:
+                        self.finished_places.append(self.player_horse.sprite)
+                else:
+                    self.player_horse.update()
+                for horse in self.challenger_horses:
+                    if horse.check_finished():
+                        if horse not in self.finished_places:
+                            self.finished_places.append(horse)
+                    else:
+                        horse.update()
+            else:
+                for horse in self.finished_places:
+                    print(horse.colour)
+                self.SwitchToScene(HorseRacingResults(self.finished_places))
     def Render(self, screen):
         screen.blit(self.background, (0, 0))
         self.player_horse.draw(screen)

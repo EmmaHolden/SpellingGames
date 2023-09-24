@@ -1,8 +1,9 @@
 import pygame
 import random
 class Horse(pygame.sprite.Sprite):
-    def __init__(self, y_coordinate, colour):
+    def __init__(self, y_coordinate, colour, game):
         super().__init__()
+        self.game = game
         self.colour = colour
         self.animation_counter = 0
         self.current_speed_index = 0
@@ -11,6 +12,11 @@ class Horse(pygame.sprite.Sprite):
         self.image = pygame.image.load(f'graphics/{self.colour}horsey{self.animation_counter}.png')
         self.x_pos = 70
         self.rect = self.image.get_rect(center=(self.x_pos, self.y_coordinate))
+
+    def check_finished(self):
+        if self.x_pos >= 1120:
+            self.image = pygame.image.load(f'graphics/{self.colour}horsey{0}.png')
+            return True
 
     def make_faster(self):
         if self.current_speed_index < len(self.speeds) - 1:
