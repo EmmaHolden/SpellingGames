@@ -3,10 +3,10 @@ import random
 import pyttsx3
 from scene_base import SceneBase
 from game_variables import spelling_words
-from horse_racing_text_input_box import TextInputBox
-from horse_racing_computer_horse import ComputerHorse
-from horse_racing_player_horse import PlayerHorse
-from horse_racing_results import HorseRacingResults
+from horseracing.horse_racing_text_input_box import TextInputBox
+from horseracing.horse_racing_computer_horse import ComputerHorse
+from horseracing.horse_racing_player_horse import PlayerHorse
+from horseracing.horse_racing_results import HorseRacingResults
 
 class HorseGame(SceneBase):
     def __init__(self):

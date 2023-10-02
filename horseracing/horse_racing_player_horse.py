@@ -1,4 +1,4 @@
-from horse_racing_horse_class import Horse
+from horseracing.horse_racing_horse_class import Horse
 import random
 class PlayerHorse(Horse):
     def __init__(self, y_coordinate, colour, game):

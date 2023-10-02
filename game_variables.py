@@ -19,18 +19,22 @@ pixel_font_80 = pygame.font.Font('font/Pixeltype.ttf', 80)
 pixel_font_120 = pygame.font.Font('font/Pixeltype.ttf', 120)
 
 # HORSE RACING FONTS
+horse_font_30 = pygame.font.Font('font/horse.ttf', 30)
 horse_font_40 = pygame.font.Font('font/horse.ttf', 40)
 horse_font_60 = pygame.font.Font('font/horse.ttf', 60)
 
 game_colours = {
     "green": '#00DFA2',
     "lightblue": "#A2D2FF",
+    "skyblue": "#A7ECFF",
+    "grassgreen": "#B5E61D",
     "blue": '#0079FF',
     "yellow": '#F6FA70',
     "orange": '#FF9526',
     "red": '#FF0060',
     "purple": '#2A3492',
 }
+
 
 
 
