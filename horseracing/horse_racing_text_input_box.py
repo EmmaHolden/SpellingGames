@@ -1,8 +1,8 @@
 import pygame
-from game_variables import horse_font_40
+from game_variables import horse_font_40, game_colours
 
 active_colour = "white"
-inactive_colour = "#A7ECFF"
+inactive_colour = game_colours["skyblue"]
 class TextInputBox():
     def __init__(self, game):
         self.game = game

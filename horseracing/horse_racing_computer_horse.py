@@ -1,5 +1,5 @@
 import random
-from horse_racing_horse_class import Horse
+from horseracing.horse_racing_horse_class import Horse
 class ComputerHorse(Horse):
     def __init__(self, y_coordinate, colour, game):
         super().__init__(y_coordinate, colour, game)

@@ -4,7 +4,7 @@ from hangman.hangman_instructions import HangmanInstructions
 from anagram_instructions import AnagramInstructions
 from chomper.chomper_instructions import ChomperInstructions
 from placeholder_scene import GameScene
-from horse_racing_game import HorseGame
+from horseracing.horse_racing_instructions import HorseRacingInstructions
 
 
 class MainMenu(SceneBase):
@@ -37,7 +37,7 @@ class MainMenu(SceneBase):
             return ChomperInstructions()
         elif letter_selected == "R":
             print("You chose horse racing!")
-            return HorseGame()
+            return HorseRacingInstructions()
         else:
             print("You chose a different letter!")
             return GameScene()
