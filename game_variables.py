@@ -23,6 +23,9 @@ horse_font_30 = pygame.font.Font('font/horse.ttf', 30)
 horse_font_40 = pygame.font.Font('font/horse.ttf', 40)
 horse_font_60 = pygame.font.Font('font/horse.ttf', 60)
 
+# ANAGRAM FONTS
+anagram_font_100 = pygame.font.Font('font/anagram_font.ttf', 100)
+
 game_colours = {
     "green": '#00DFA2',
     "lightblue": "#A2D2FF",
